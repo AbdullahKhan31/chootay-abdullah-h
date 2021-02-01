@@ -42,11 +42,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/api/**").hasAuthority("ADMIN")
-                .antMatchers("/api/repairs/**").hasAuthority("MECHANIC")
-                .antMatchers("/api/users/**", "/api/sales-report/**").hasAuthority("MANAGER")
-                .antMatchers("/api/bikes/**", "/api/transactions/**", "/api/customers/**", "/api/spareparts/**")
-                .hasAuthority("SALESPERSON")
+                .antMatchers("/repairs/**").hasAnyAuthority("ADMIN", "MECHANIC")
+                .antMatchers("/users/**", "/sales-report/**").hasAnyAuthority("ADMIN", "MANAGER")
+                .antMatchers("/bikes/**", "/transactions/**", "/customers/**", "/spareparts/**")
+                .hasAnyAuthority("ADMIN", "SALESPERSON")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().defaultSuccessUrl("/swagger-ui/")

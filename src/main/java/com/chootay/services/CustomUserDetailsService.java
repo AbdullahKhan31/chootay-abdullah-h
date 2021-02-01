@@ -23,7 +23,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         } else {
             throw new UsernameNotFoundException("User does not exist with name " + username);
         }
-        System.out.println("NAME" + customUserDetails.getAuthorities());
+        System.out.println("User Roles:" + customUserDetails.getAuthorities());
         return customUserDetails;
     }
 }
